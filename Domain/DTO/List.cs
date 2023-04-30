@@ -20,6 +20,6 @@ namespace Domain.DTO
         public Guid UserId { get; set; }
 
         public List<Note>? Notes { get; set; } = new List<Note>();
-        public User User { get; set; }-
+        public User User { get; set; }
     }
 }
