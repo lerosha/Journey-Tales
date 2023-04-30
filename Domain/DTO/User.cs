@@ -6,9 +6,8 @@ namespace Domain.DTO
 {
     public class User : DataEntity
     {
-        [Required]
         [Column("username")]
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         [Required]
         [Column("email")]
@@ -18,13 +17,11 @@ namespace Domain.DTO
         [Column("password")]
         public string Password { get; set; }
 
-        [Required]
         [Column("phone")]
-        public string Phone { get; set; }
-
+        public string? Phone { get; set; }
 
         public List<List>? Lists { get; set; } = new List<List>();
 
-        public List<Note>? Notes { get; set; } = new List<Note>();
+        //public List<Note>? Notes { get; set; } = new List<Note>();
     }
 }

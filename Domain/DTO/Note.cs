@@ -12,20 +12,16 @@ namespace Domain.DTO
     {
         [Required]
         [Column("title")]
-        public string? Title { get; set; }
-        [Required]
+        public string Title { get; set; }
         [Column("text")]
         public string? Text { get; set; }
-        [Required]
         [Column("tags")]
         public string? Tags { get; set; }
-        [Required]
         [Column("budget")]
         public decimal Budget { get; set; }
-        [Required]
-        [Column("userid")]
-        public Guid UserId { get; set; }
 
-        public int ListId { get; set; }
+        //public Guid UserId { get; set; }
+        [ForeignKey("listid")]
+        public Guid ListId { get; set; }
     }
 }

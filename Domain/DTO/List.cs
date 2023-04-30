@@ -10,19 +10,16 @@ namespace Domain.DTO
 {
     public class List : DataEntity
     {
-        [Required]
         [Column("destinationcountry")]
         public string? DestinationCountry { get; set; }
-        [Required]
         [Column("destinationcity")]
         public string? DestinationCity { get; set; }
-        [Required]
         [Column("notecount")]
         public int NoteCount { get; set; }
-        [Required]
-        [Column("userid")]
+        [ForeignKey("userid")]
         public Guid UserId { get; set; }
 
         public List<Note>? Notes { get; set; } = new List<Note>();
+        public User User { get; set; }-
     }
 }
