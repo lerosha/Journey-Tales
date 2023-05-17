@@ -30,6 +30,7 @@ namespace Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors(x=>x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
