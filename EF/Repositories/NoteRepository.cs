@@ -1,8 +1,10 @@
 ﻿using Domain.DTO;
 using Infrastructure.Exceptions;
 using Infrastructure.IRepositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Security.Claims;
 
 namespace EF.Repositories
 {

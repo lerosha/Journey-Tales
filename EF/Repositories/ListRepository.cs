@@ -1,8 +1,10 @@
 ﻿using Domain.DTO;
 using Infrastructure.Exceptions;
 using Infrastructure.IRepositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Security.Claims;
 
 namespace EF.Repositories
 {
@@ -10,11 +12,14 @@ namespace EF.Repositories
     {
         public readonly ProjectContext _context;
         public readonly DbSet<List> _dbSet;
+        private readonly Guid _userId;
 
-        public ListRepository(ProjectContext context)
+        public ListRepository(ProjectContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _dbSet = _context.Set<List>();
+            var email = httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Email).Value;
+            _userId = context.Users.First(x => x.Email == email).Id;
         }
 
         public async Task<Guid> CreateAsync(List entity)
@@ -27,7 +32,7 @@ namespace EF.Repositories
 
         public async Task<IQueryable<List>> GetAllAsync()
         {
-            var models = await Task.FromResult(_dbSet.AsNoTracking());
+            var models = await Task.FromResult(_dbSet.AsNoTracking().Where(x => x.UserId == _userId));
 
             return models;
         }
@@ -39,7 +44,7 @@ namespace EF.Repositories
 
         public async Task<List> GetByIdAsync(Guid id)
         {
-            var existEntity = await _dbSet.FindAsync(id);
+            var existEntity = await _dbSet.FirstOrDefaultAsync(x => x.UserId == _userId && x.Id == id);
 
             if (existEntity == null)
             {
@@ -51,7 +56,7 @@ namespace EF.Repositories
 
         public async Task RemoveAsync(Guid id)
         {
-            var existEntity = await _dbSet.FindAsync(id);
+            var existEntity = await _dbSet.FirstOrDefaultAsync(x => x.UserId == _userId && x.Id == id);
 
             if (existEntity == null)
             {
@@ -64,7 +69,7 @@ namespace EF.Repositories
 
         public async Task UpdateAsync(List entity)
         {
-            var existEntity = await _dbSet.FindAsync(entity.Id);
+            var existEntity = await _dbSet.FirstOrDefaultAsync(x => x.UserId == _userId && x.Id == entity.Id);
 
             if (existEntity == null)
             {

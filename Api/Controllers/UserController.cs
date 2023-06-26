@@ -48,7 +48,7 @@ namespace Api.Controllers
                     Id = entity.Id,
                     Email = entity.Email,
                     CreatedOn = entity.CreatedOn,
-                    ModifiedOb = entity.ModifiedOn
+                    ModifiedOn = entity.ModifiedOn
                 });
             }
             return Ok(views);

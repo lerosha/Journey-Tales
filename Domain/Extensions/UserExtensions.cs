@@ -17,7 +17,7 @@ namespace Domain.Extensions
                 Id = entity.Id,
                 Email = entity.Email,
                 CreatedOn = entity.CreatedOn,
-                ModifiedOb = entity.ModifiedOn
+                ModifiedOn = entity.ModifiedOn
             };
         }
         public static User ConvertToEntity(this CreateUserView view)

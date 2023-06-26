@@ -10,7 +10,7 @@ namespace Domain.Views.Users
     {
         public Guid Id { get; set; }
         public DateTime CreatedOn { get; set; }
-        public DateTime ModifiedOb { get; set; }
+        public DateTime ModifiedOn { get; set; }
         public string Email { get; set; } = null!;
     }
 }
